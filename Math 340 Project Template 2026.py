@@ -106,10 +106,86 @@ def test_halls(priorities_filename,man_set_label,woman_set_label):
         s = list(iterable)
         return chain.from_iterable(combinations(s, r) for r in range(1,len(s)+1))
     #TODO: test Hall's condition
-    return 0
+    
+    #Testing - David Rodriguez
+    dictionaries = read_priorities(priorities_filename)
+    man_set_label = dictionaries["B"] #B list
+    man_set_label_powerset = list(powerset(man_set_label))
+    woman_set_label = dictionaries["R"] #R list
+    print("Man set")
+    print(man_set_label.keys())
+    # print("Woman set")
+    # print(woman_set_label)
+    
+    if(len(man_set_label) != len(woman_set_label)):
+        return "fail"
+    i = 0
+    dictForBs = {}
+    for key in man_set_label.keys():
+        dictForBs.update({f"{key}": 0})
+      
+    print("temp dict man keys")  
+    print(dictForBs)
+    #for man in dictionaries.values():
+    #    print("B" + str(i))
+    #    print(list(powerset(man)))
+    #    i += 1
+    # dictForBs = {
+    #     "B0": 0,
+    #     "B1": 0,
+    #     "B2": 0,
+    #     "B3": 0,
+    #     "B4": 0,
+    #     "B5": 0,
+    #     "B6": 0,
+    #     "B7": 0,
+    #     "B8": 0,
+    #     "B9": 0
+    # }
+    # print(man_set_label_powerset)
+    
+    # for match in man_set_label_powerset:
+    #     #print(match)
+    #     for man in woman_set_label.values():
+    #         for i in range(0,len(man)-1):
+    #             if(len(man) == len(match)):
+    #                 if(man[i] == match[i]):
+    #                     if(man[i] == 'B0' and match[i] == 'B0'):
+    #                         dictForBs["B0"] += 1
+    #                     elif (man[i] == 'B1' and match[i] == 'B1'):
+    #                         dictForBs["B1"] += 1
+    #                     elif (man[i] == 'B2' and match[i] == 'B2'):
+    #                         dictForBs["B2"] += 1
+    #                     elif (man[i] == 'B3' and match[i] == 'B3'):
+    #                         dictForBs["B3"] += 1
+    #                     elif (man[i] == 'B4' and match[i] == 'B4'):
+    #                         dictForBs["B4"] += 1
+    #                     elif (man[i] == 'B5' and match[i] == 'B5'):
+    #                         dictForBs["B5"] += 1
+    #                     elif (man[i] == 'B6' and match[i] == 'B6'):
+    #                         dictForBs["B6"] += 1
+    #                     elif (man[i] == 'B7' and match[i] == 'B7'):
+    #                         dictForBs["B7"] += 1
+    #                     elif (man[i] == 'B8' and match[i] == 'B8'):
+    #                         dictForBs["B8"] += 1
+    #                     elif (man[i] == 'B9' and match[i] == 'B9'):
+    #                         dictForBs["B9"] += 1
+                        
+    # for x in dictForBs.values():
+    #     if(x == 0):
+    #         return "fail"
+        
+    #print(dictForBs)
+    #print(len(man_set_label), "\n")
+    
+    i = 0; #index of main list
+                
+ 
+    return "pass"
+    #End - Rodriguez
 
 #this is where you will test whether a set of proposed pairings are stable or not.  It should
-#return a set of sets.  Each inner set represents a rogue pairing.  A stable pairing should
+#return a set of sets. Each inner set represents a rogue pairing.  A stable pairing should
 #return an empty set.
 def find_rogues(pairs_filename, priorities_filename):
     #TODO: identify rogue pairings
@@ -162,7 +238,7 @@ def main():
             print("Task 3 complete.")
         return 0
     
-    #task_1()#test Hall's Condition for each
+    task_1()#test Hall's Condition for each
     #task_2()#find rogue pairs for each proposed
     #task_3()#generate the blue and red optimal solutions for each
 
@@ -173,8 +249,40 @@ def main():
 #each task as appropriate and call main() instead of test() at the bottom by toggeling
 # whether each of those lines are commented out
 def test():
+    
+    #Testing David Rodriguez
+    #Calling Task 1 individually instead of calling it all at once
+    def task_1():
+        #test Hall's Condition for each and output results to single a file
+        of=open(T1_SOLN_PATH+"results.txt","w")
+        for size in (6,10):
+            for file in range(0,1): #Only read one csv file from 6 and 10
+                of.write("size "+str(size)+" file "+str(file)+": ")
+                halls_result=test_halls(T1_DATA_PATH+"size"+str(size)+"-"+str(file)+".csv",'B','R') #test_halls in progress
+                of.write(str(halls_result)+"\n")
+                print(halls_result)
+        of.close()
+        print("Task 1 complete.")
+        
+        #input_File = open(priorities_filename, "r")
+    #contents = input_File.read(); #Grabs file contents
+    #lines = contents.split("\n") #Splices content at "\n"
+    #print(priorities_filename) #Prints file being spliced
+    #for line in lines: #Iterates through the list and prints out each line after more spliceing.
+    #    priority_list = line.split(",") #Splices line at ","
+    #    j = 0 #Used to navigate through sublists, working on rewriting this section
+    #    if(priority_list[0] == 'B'):
+    #        for element in priority_list: #Grabs elements in the list.
+    #            print(element, end='')
+                            #Look at first value of the string at index 0 to check if it is R or B.
+                            #Then a list is assigned to R/B[i] to make a 2D list.
+        return 0
+    
+    task_1()
+    #End - Rodriguez
     return 0
 
 #Here's where main() and/or test() gets executed when you run this script.
 main()
-#test()
+# test()
+    
