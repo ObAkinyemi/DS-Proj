@@ -109,79 +109,71 @@ def test_halls(priorities_filename,man_set_label,woman_set_label):
     
     #Testing - David Rodriguez
     dictionaries = read_priorities(priorities_filename)
-    man_set_label = dictionaries["B"] #B list
-    man_set_label_powerset = list(powerset(man_set_label))
-    woman_set_label = dictionaries["R"] #R list
-    print("Man set")
-    print(man_set_label.keys())
+    
+    men = dictionaries[man_set_label].keys()
+    women = dictionaries[woman_set_label].keys()
+    print("men")
+    print(men)
+    
+    for subset in powerset(men):
+        set neighborhood = 
+        for elem in subset:
+            
+            
+    
+    # man_set_label = dictionaries["B"] #B list
+    # man_set_label_powerset = list(powerset(man_set_label))
+    # woman_set_label = dictionaries["R"] #R list
+    # print("Man Keys set:")
+    # print(man_set_label.keys())
+    
+    # print("Man Values set:")
+    #print(man_set_label.values())
+    #print("Man values powerset")
+    #print(list(powerset(man_set_label.values())))
     # print("Woman set")
     # print(woman_set_label)
     
-    if(len(man_set_label) != len(woman_set_label)):
-        return "fail"
-    i = 0
-    dictForBs = {}
-    for key in man_set_label.keys():
-        dictForBs.update({f"{key}": 0})
-      
-    print("temp dict man keys")  
-    print(dictForBs)
-    #for man in dictionaries.values():
-    #    print("B" + str(i))
-    #    print(list(powerset(man)))
-    #    i += 1
-    # dictForBs = {
-    #     "B0": 0,
-    #     "B1": 0,
-    #     "B2": 0,
-    #     "B3": 0,
-    #     "B4": 0,
-    #     "B5": 0,
-    #     "B6": 0,
-    #     "B7": 0,
-    #     "B8": 0,
-    #     "B9": 0
-    # }
-    # print(man_set_label_powerset)
+    # if(len(man_set_label) != len(woman_set_label)):
+    #     return "fail"
     
-    # for match in man_set_label_powerset:
-    #     #print(match)
-    #     for man in woman_set_label.values():
-    #         for i in range(0,len(man)-1):
-    #             if(len(man) == len(match)):
-    #                 if(man[i] == match[i]):
-    #                     if(man[i] == 'B0' and match[i] == 'B0'):
-    #                         dictForBs["B0"] += 1
-    #                     elif (man[i] == 'B1' and match[i] == 'B1'):
-    #                         dictForBs["B1"] += 1
-    #                     elif (man[i] == 'B2' and match[i] == 'B2'):
-    #                         dictForBs["B2"] += 1
-    #                     elif (man[i] == 'B3' and match[i] == 'B3'):
-    #                         dictForBs["B3"] += 1
-    #                     elif (man[i] == 'B4' and match[i] == 'B4'):
-    #                         dictForBs["B4"] += 1
-    #                     elif (man[i] == 'B5' and match[i] == 'B5'):
-    #                         dictForBs["B5"] += 1
-    #                     elif (man[i] == 'B6' and match[i] == 'B6'):
-    #                         dictForBs["B6"] += 1
-    #                     elif (man[i] == 'B7' and match[i] == 'B7'):
-    #                         dictForBs["B7"] += 1
-    #                     elif (man[i] == 'B8' and match[i] == 'B8'):
-    #                         dictForBs["B8"] += 1
-    #                     elif (man[i] == 'B9' and match[i] == 'B9'):
-    #                         dictForBs["B9"] += 1
-                        
-    # for x in dictForBs.values():
-    #     if(x == 0):
-    #         return "fail"
+    # target_list = []
+    # for i in range(0, len(man_set_label)):
+    #     target_list.append(0)
         
-    #print(dictForBs)
-    #print(len(man_set_label), "\n")
+    # effect_index = 0;
     
-    i = 0; #index of main list
+    # for B in man_set_label:  #Iterates through man preferences B0-BN
+    #     #print(man_set_label[B])
+    #     R_length = len(man_set_label[B])  #Grabs list of B's preferances
+    #     R_list = man_set_label[B]  #List of B's preferences
+    #     for i in range(0, R_length):  #Goes through elements in B's preferences
+    #         R_num = (int)(R_list[i][1])  #Grabs R's number
+    #         #print(R_num, " ", end='');
+    #         if(target_list[R_num] == 0):  #Checks that current target isn't taken
+    #             current_effect_counter = 0  #Counter used to iterate past current B list
+    #             for man in dictionaries["B"]:  #Iterating through list after B's index
+    #                 print(man)
+    #                 #if(current_effect_counter > effect_index):
+    #                     #for j in range(0, target_length):
+    #                     #    target = (int)(B_targets[j][1])
+    #                     #    print(target, " ", end='')
+    #                     #print(" ")
+    #                 current_effect_counter += 1;
+
+    #     if(effect_index+1 != len(man_set_label)):          
+    #         effect_index += 1;
+    #         print("\n", effect_index)
+    
+    
+    #dictForBs = {}
+    #for key in man_set_label.keys():
+     #   dictForBs.update({f"{key}": 0})
+      
+    
                 
  
-    return "pass"
+    # return "pass"
     #End - Rodriguez
 
 #this is where you will test whether a set of proposed pairings are stable or not.  It should
@@ -256,7 +248,7 @@ def test():
         #test Hall's Condition for each and output results to single a file
         of=open(T1_SOLN_PATH+"results.txt","w")
         for size in (6,10):
-            for file in range(0,1): #Only read one csv file from 6 and 10
+            for file in range(0,4): #Only read one csv file from 6 and 10
                 of.write("size "+str(size)+" file "+str(file)+": ")
                 halls_result=test_halls(T1_DATA_PATH+"size"+str(size)+"-"+str(file)+".csv",'B','R') #test_halls in progress
                 of.write(str(halls_result)+"\n")
@@ -283,6 +275,6 @@ def test():
     return 0
 
 #Here's where main() and/or test() gets executed when you run this script.
-# main()
+#main()
 test()
     
