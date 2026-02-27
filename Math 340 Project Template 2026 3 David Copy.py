@@ -112,69 +112,23 @@ def test_halls(priorities_filename,man_set_label,woman_set_label):
     
     men = dictionaries[man_set_label].keys()
     women = dictionaries[woman_set_label].keys()
-    print("men")
-    print(men)
+    # print("men")
+    # print(men)
     
     for subset in powerset(men):
-        set neighborhood = 
+        nHood = set()
         for elem in subset:
-            
-            
+            for neighbor in dictionaries[man_set_label][elem]:
+                nHood.add(neighbor)
+        # print("\n")
+        # print("subset")
+        # print(subset)
+        # print("corresponding neighborhood")
+        # print(nHood)
+        if(len(subset) > len(nHood)):
+            return "fail"
     
-    # man_set_label = dictionaries["B"] #B list
-    # man_set_label_powerset = list(powerset(man_set_label))
-    # woman_set_label = dictionaries["R"] #R list
-    # print("Man Keys set:")
-    # print(man_set_label.keys())
-    
-    # print("Man Values set:")
-    #print(man_set_label.values())
-    #print("Man values powerset")
-    #print(list(powerset(man_set_label.values())))
-    # print("Woman set")
-    # print(woman_set_label)
-    
-    # if(len(man_set_label) != len(woman_set_label)):
-    #     return "fail"
-    
-    # target_list = []
-    # for i in range(0, len(man_set_label)):
-    #     target_list.append(0)
-        
-    # effect_index = 0;
-    
-    # for B in man_set_label:  #Iterates through man preferences B0-BN
-    #     #print(man_set_label[B])
-    #     R_length = len(man_set_label[B])  #Grabs list of B's preferances
-    #     R_list = man_set_label[B]  #List of B's preferences
-    #     for i in range(0, R_length):  #Goes through elements in B's preferences
-    #         R_num = (int)(R_list[i][1])  #Grabs R's number
-    #         #print(R_num, " ", end='');
-    #         if(target_list[R_num] == 0):  #Checks that current target isn't taken
-    #             current_effect_counter = 0  #Counter used to iterate past current B list
-    #             for man in dictionaries["B"]:  #Iterating through list after B's index
-    #                 print(man)
-    #                 #if(current_effect_counter > effect_index):
-    #                     #for j in range(0, target_length):
-    #                     #    target = (int)(B_targets[j][1])
-    #                     #    print(target, " ", end='')
-    #                     #print(" ")
-    #                 current_effect_counter += 1;
-
-    #     if(effect_index+1 != len(man_set_label)):          
-    #         effect_index += 1;
-    #         print("\n", effect_index)
-    
-    
-    #dictForBs = {}
-    #for key in man_set_label.keys():
-     #   dictForBs.update({f"{key}": 0})
-      
-    
-                
- 
-    # return "pass"
-    #End - Rodriguez
+    return "pass"
 
 #this is where you will test whether a set of proposed pairings are stable or not.  It should
 #return a set of sets. Each inner set represents a rogue pairing.  A stable pairing should
@@ -242,39 +196,14 @@ def main():
 # whether each of those lines are commented out
 def test():
     
-    #Testing David Rodriguez
-    #Calling Task 1 individually instead of calling it all at once
-    def task_1():
-        #test Hall's Condition for each and output results to single a file
-        of=open(T1_SOLN_PATH+"results.txt","w")
-        for size in (6,10):
-            for file in range(0,4): #Only read one csv file from 6 and 10
-                of.write("size "+str(size)+" file "+str(file)+": ")
-                halls_result=test_halls(T1_DATA_PATH+"size"+str(size)+"-"+str(file)+".csv",'B','R') #test_halls in progress
-                of.write(str(halls_result)+"\n")
-                print(halls_result)
-        of.close()
-        print("Task 1 complete.")
-        
-        #input_File = open(priorities_filename, "r")
-    #contents = input_File.read(); #Grabs file contents
-    #lines = contents.split("\n") #Splices content at "\n"
-    #print(priorities_filename) #Prints file being spliced
-    #for line in lines: #Iterates through the list and prints out each line after more spliceing.
-    #    priority_list = line.split(",") #Splices line at ","
-    #    j = 0 #Used to navigate through sublists, working on rewriting this section
-    #    if(priority_list[0] == 'B'):
-    #        for element in priority_list: #Grabs elements in the list.
-    #            print(element, end='')
-                            #Look at first value of the string at index 0 to check if it is R or B.
-                            #Then a list is assigned to R/B[i] to make a 2D list.
-        return 0
+    size = 6
+    file = 3
     
-    task_1()
-    #End - Rodriguez
+    print(test_halls(T1_DATA_PATH+"size"+str(size)+"-"+str(file)+".csv",'B','R')) #test_halls in progress
+        
     return 0
 
 #Here's where main() and/or test() gets executed when you run this script.
-#main()
-test()
+main()
+# test()
     
