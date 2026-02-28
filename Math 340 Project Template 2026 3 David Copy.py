@@ -1,3 +1,4 @@
+# file name: Math 340 Project Template 2026 3 David Copy.py
 #Use these 7 global variables to set the directories for your data and output (solution) files for each
 #task.  Although I distinctly remember Dr Fagin standing on a soap box in CS210 and telling me not to use
 #global variables, python doesn't have constants.  Instead, the convention is to use an all uppercase name
@@ -134,8 +135,60 @@ def test_halls(priorities_filename,man_set_label,woman_set_label):
 #return a set of sets. Each inner set represents a rogue pairing.  A stable pairing should
 #return an empty set.
 def find_rogues(pairs_filename, priorities_filename):
-    #TODO: identify rogue pairings
-    return 0
+    
+    # get the pairings.
+    # find the index of the pairing in the priorities list
+    # compare the index of the 0th pair in the priority list to the index of the pairing in the priority list
+    
+    
+    pairs = read_pairs(pairs_filename)
+    priorities = read_priorities(priorities_filename)
+    
+    print("pair vals")
+    print(pairs)
+    print("\n")
+    
+    men_prefs = priorities['B']
+    women_prefs = priorities['R']
+    reverse_pairs = {}
+    
+    for woman in women_prefs:
+        print(f"woman: {woman}")
+        for match in women_prefs[woman]:
+            print(match)
+            if match == pairs[woman]:
+                break
+
+    # for man in men_prefs:
+    #     print(f"woman: {man}")
+    #     for match in men_prefs[man]:
+    #         print(match)
+    #         if match == pairs[man]:
+    #             break
+    
+    # for man in pairs:
+    #     woman = pairs[man]
+    #     reverse_pairs[woman] = man
+ 
+    # rogue_couples = set()
+ 
+    # for man in pairs:
+    #     current_woman = pairs[man]
+    #     man_pref_list = men_prefs[man]
+ 
+    #     for woman in man_pref_list:
+    #         if woman == current_woman:
+    #             break
+ 
+    #         her_current_man = reverse_pairs[woman]
+    #         woman_pref_list = women_prefs[woman]
+ 
+    #         if woman_pref_list.index(man) < woman_pref_list.index(her_current_man):
+    #             rogue_couples.add(frozenset([man,woman]))
+ 
+    # return rogue_couples
+    # return 0
+
 
 #This is where you need to implement the Gale-Shapley algorithm on a set of priorities defined
 #in a CSV file located by the csv_path parameter.  man_set_label and woman_set_label are strings
@@ -196,14 +249,18 @@ def main():
 # whether each of those lines are commented out
 def test():
     
-    size = 6
-    file = 3
-    
-    print(test_halls(T1_DATA_PATH+"size"+str(size)+"-"+str(file)+".csv",'B','R')) #test_halls in progress
-        
-    return 0
+    def task_2():
+        #for each proposed pairing: find rogue pairs and print them to a file
+        for size in (6,10,25,100):
+            for pairing in(0,1,2,3):
+                rogues=find_rogues(T2_DATA_PATH+"size_"+str(size)+"_pairings_"+str(pairing)+".csv", T2_DATA_PATH+"size_"+str(size)+"_priorities.csv")
+                # print_rogues(T2_SOLN_PATH+"size_"+str(size)+"_rogues_"+str(pairing)+".txt", rogues)
+        print("Task 2 complete.")
+        return 0
+
+    task_2()
 
 #Here's where main() and/or test() gets executed when you run this script.
-main()
-# test()
+# main()
+test()
     
