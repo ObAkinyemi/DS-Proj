@@ -145,26 +145,45 @@ def find_rogues(pairs_filename, priorities_filename):
     priorities = read_priorities(priorities_filename)
     
     print("pair vals")
-    print(pairs)
+    # print(pairs.keys())
+    # print(pairs.values())
+    # print(pairs)
     print("\n")
     
     men_prefs = priorities['B']
     women_prefs = priorities['R']
     reverse_pairs = {}
     
+    for pair in pairs:
+        # print(pair)
+        # print(pairs[pair])
+        reverse_pairs[pairs[pair]] = pair
+        
+    # print(reverse_pairs)
+    
+    
+    
+    # print(men_prefs['B0'])
+    # print(women_prefs['R0'])
+    
+    
+    
     for woman in women_prefs:
         print(f"woman: {woman}")
+        tempSet = ()
         for match in women_prefs[woman]:
             print(match)
             if match == pairs[woman]:
                 break
 
-    # for man in men_prefs:
-    #     print(f"woman: {man}")
-    #     for match in men_prefs[man]:
-    #         print(match)
-    #         if match == pairs[man]:
-    #             break
+    print("\n")
+
+    for man in men_prefs:
+        print(f"man: {man}")
+        for match in men_prefs[man]:
+            print(match)
+            if match == reverse_pairs[man]:
+                break
     
     # for man in pairs:
     #     woman = pairs[man]
@@ -187,7 +206,7 @@ def find_rogues(pairs_filename, priorities_filename):
     #             rogue_couples.add(frozenset([man,woman]))
  
     # return rogue_couples
-    # return 0
+    return 0
 
 
 #This is where you need to implement the Gale-Shapley algorithm on a set of priorities defined
@@ -250,10 +269,17 @@ def main():
 def test():
     
     def task_2():
+        
+        
+        size = 6
+        pairing = 0
+        rogues=find_rogues(T2_DATA_PATH+"size_"+str(size)+"_pairings_"+str(pairing)+".csv", T2_DATA_PATH+"size_"+str(size)+"_priorities.csv")
+        
+        
         #for each proposed pairing: find rogue pairs and print them to a file
-        for size in (6,10,25,100):
-            for pairing in(0,1,2,3):
-                rogues=find_rogues(T2_DATA_PATH+"size_"+str(size)+"_pairings_"+str(pairing)+".csv", T2_DATA_PATH+"size_"+str(size)+"_priorities.csv")
+        # for size in (6,10,25,100):
+        #     for pairing in(0,1,2,3):
+        #         rogues=find_rogues(T2_DATA_PATH+"size_"+str(size)+"_pairings_"+str(pairing)+".csv", T2_DATA_PATH+"size_"+str(size)+"_priorities.csv")
                 # print_rogues(T2_SOLN_PATH+"size_"+str(size)+"_rogues_"+str(pairing)+".txt", rogues)
         print("Task 2 complete.")
         return 0
