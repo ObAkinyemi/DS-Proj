@@ -144,27 +144,29 @@ def find_rogues(pairs_filename, priorities_filename):
     pairs = read_pairs(pairs_filename)
     priorities = read_priorities(priorities_filename)
     
-    print("pair vals")
-    # print(pairs.keys())
+    # print("pair vals")
+    print("pair vals pre reverse")
+    
+    print(pairs)
     # print(pairs.values())
     # print(pairs)
     print("\n")
     
     men_prefs = priorities['B']
     women_prefs = priorities['R']
-    reverse_pairs = {}
     
+    # reverse the dictionary
+    reverse_pairs = {}
     for pair in pairs:
-        # print(pair)
-        # print(pairs[pair])
         reverse_pairs[pairs[pair]] = pair
         
     # print(reverse_pairs)
     
+    listOfKeys = []
+    for key in pairs.keys():
+        listOfKeys.append(key)
     
-    
-    # print(men_prefs['B0'])
-    # print(women_prefs['R0'])
+    # print(listOfKeys[0][0])
     
     # The two dictionaries to hold the preferences of the men and women.
     womenPrefDict = {}
@@ -172,6 +174,16 @@ def find_rogues(pairs_filename, priorities_filename):
     
     # The set that will hold the sets of rogue pairs.
     roguePairP = set()
+    
+    print("pair vals post reverse")
+    if listOfKeys[0][0] == 'B':
+        tempDict = pairs
+        pairs = reverse_pairs
+        reverse_pairs = tempDict
+    
+    # men_prefs = priorities[listOfKeys[0]]
+    # women_prefs = priorities[listOfKeys[0]]
+    print(pairs)
     
     for woman in women_prefs:
         # print(f"woman: {woman}")
@@ -191,6 +203,8 @@ def find_rogues(pairs_filename, priorities_filename):
         # print(f"man: {man}")
         tempList = []
         for match in men_prefs[man]:
+            # print(f"man: {man}")
+            # print(f"match: {match}")
             if match == reverse_pairs[man]:
                 break
             # print(match)
@@ -209,9 +223,9 @@ def find_rogues(pairs_filename, priorities_filename):
                 # print(f"prefL: {prefL}")
                 if match == prefL:
                     roguePairS = {match, pref}
-                    frozenRP = frozenset(roguePairS)
+                    # frozenRP = frozenset(roguePairS)
                     # print(roguePairS)
-            roguePairP.add(frozenRP)
+            roguePairP.add(frozenset(roguePairS))
             
     print(roguePairP)
                     
@@ -237,7 +251,6 @@ def find_rogues(pairs_filename, priorities_filename):
     #             rogue_couples.add(frozenset([man,woman]))
  
     return roguePairP
-    return 0
 
 
 #This is where you need to implement the Gale-Shapley algorithm on a set of priorities defined
@@ -287,8 +300,8 @@ def main():
             print("Task 3 complete.")
         return 0
     
-    task_1()#test Hall's Condition for each
-    #task_2()#find rogue pairs for each proposed
+    # task_1()#test Hall's Condition for each
+    task_2()#find rogue pairs for each proposed
     #task_3()#generate the blue and red optimal solutions for each
 
     return 0
@@ -318,6 +331,6 @@ def test():
     task_2()
 
 #Here's where main() and/or test() gets executed when you run this script.
-# main()
+main()
 test()
     
