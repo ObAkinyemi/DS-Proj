@@ -261,7 +261,91 @@ def find_rogues(pairs_filename, priorities_filename):
 #and the values are the women.
 def pair(csv_path,man_set_label,woman_set_label):
     #TODO: implement the Gale-Shapley algorithm
-    return 0
+    finalDict = {}
+    priorities = read_priorities(csv_path)
+    men_prefs = priorities["B"]
+    women_prefs = priorities["R"]
+    
+    freeMen = {}
+    freeWomen = {}
+    engagements = {}
+    rev_engage = {}
+    
+    for man in men_prefs:
+        freeMen[man] = 1
+        
+    for woman in women_prefs:
+        freeWomen[woman] = 1
+        
+    print(freeMen)
+    print(freeWomen)
+    
+    for man in men_prefs:
+        i = 0
+        #for priorities in men_prefs[man]:
+            #print(priorities)
+        while(freeMen[man] == 1):
+            w = men_prefs[man][0]
+            #print(w)
+            if freeWomen[w] == 1:
+                engagements[man] = w
+                rev_engage[w] = man
+                freeMen[man] = 0
+                freeWomen[w] = 0
+                print(f"{man}: {w}")
+            else:
+                j = 0
+              #  for woman in women_prefs:
+                #print(women_prefs[w])
+                for match in women_prefs[w]: #Finding if she wants the man more than her husband
+                    if match == rev_engage[w]:
+                        #print(match)
+                        break
+                    elif match == man:
+                        engagements[man] = w
+                        freeMen[match] = 1
+                        men_prefs[match].remove(w)
+                        j = 1;
+                if j == 0:
+                    men_prefs[man].remove(w)
+                    
+                #else:
+        #print("freeMen: ", freeMen.values())
+        #print("freeWomen: ", freeWomen.values()) 
+                    
+   # print("freeMen: ", freeMen.values())
+    #print("freeWomen: ", freeWomen.values())
+            
+    
+   # for match in women_prefs[woman]: Finding if she wants the man more than her husband
+   #         if match == pairs[woman]:
+   #             break
+    
+    #men_prefs = man_set_label["B"]
+    #women_prefs = woman_set_label["R"]
+    
+   # while there is a free m who has non-empty list do
+    #    w = top in the list
+     #   if w is free then
+      #      mw engage
+       # else
+        #    Some m0w already engaged
+         #   if w prefers m to m0 then
+          #      mw engage, m0 becomes free
+           #     Remove w from m0
+            #    ’s list
+           # else
+            #    m0w remain engaged, remove w from m’s list
+             #   end if
+              #  end if
+               # end while
+               
+    
+  
+
+    
+    
+    return engagements
 
 #This is the main program.  For each of the three tasks you've been assigned, it has code to loop
 #through all the files provided.  My suggestion is that you only use it once you have each task
@@ -301,8 +385,8 @@ def main():
         return 0
     
     # task_1()#test Hall's Condition for each
-    task_2()#find rogue pairs for each proposed
-    #task_3()#generate the blue and red optimal solutions for each
+    #task_2()#find rogue pairs for each proposed
+    task_3()#generate the blue and red optimal solutions for each
 
     return 0
    
@@ -312,25 +396,17 @@ def main():
 # whether each of those lines are commented out
 def test():
     
-    def task_2():
-        
-        
-        size = 6
-        pairing = 0
-        rogues=find_rogues(T2_DATA_PATH+"size_"+str(size)+"_pairings_"+str(pairing)+".csv", T2_DATA_PATH+"size_"+str(size)+"_priorities.csv")
-        print_rogues(T2_SOLN_PATH+"size_"+str(size)+"_rogues_"+str(pairing)+".txt", rogues)
-        
-        
-        #for each proposed pairing: find rogue pairs and print them to a file
-        # for size in (6,10,25,100):
-        #     for pairing in(0,1,2,3):
-        #         rogues=find_rogues(T2_DATA_PATH+"size_"+str(size)+"_pairings_"+str(pairing)+".csv", T2_DATA_PATH+"size_"+str(size)+"_priorities.csv")
-        print("Task 2 complete.")
+    def task_3():
+        #generate the blue and red optimal solutions for each
+        for size in (6,10):
+            priorities_filename=T3_DATA_PATH+"size_"+str(size)+"_priorities.csv"
+            pairs=pair(priorities_filename,'B','R')
+            write_pairs(T3_SOLN_PATH+"size_"+str(size)+"_B-R_soln.csv",pairs)
+            pairs=pair(priorities_filename,'R','B')
+            write_pairs(T3_SOLN_PATH+"size_"+str(size)+"_R-B_soln.csv",pairs)
+            print("Task 3 complete.")
         return 0
-
-    task_2()
-
+    task_3()
 #Here's where main() and/or test() gets executed when you run this script.
 main()
-test()
-    
+# test()
