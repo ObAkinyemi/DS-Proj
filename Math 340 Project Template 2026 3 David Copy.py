@@ -5,8 +5,8 @@
 #to indicate to other programmers that they should only be referencing these variables, not overwring them.
 #Toggle the comment between lines 7 and 8 to switch between using the example data for which I've given you
 #the correct solutions and the project data for which you're asked to come up with the correct solutions.
-DATA_SET=".\\data\\example\\"
-#DATA_SET=".\\data\\project\\"
+# DATA_SET=".\\data\\example\\"
+DATA_SET=".\\data\\project\\"
 T1_DATA_PATH=DATA_SET+"T1\\data\\"
 T1_SOLN_PATH=DATA_SET+"T1\\output\\"
 T2_DATA_PATH=DATA_SET+"T2\\data\\"
@@ -263,8 +263,8 @@ def pair(csv_path,man_set_label,woman_set_label):
     #TODO: implement the Gale-Shapley algorithm
     finalDict = {}
     priorities = read_priorities(csv_path)
-    men_prefs = priorities["B"]
-    women_prefs = priorities["R"]
+    men_prefs = priorities[man_set_label]
+    women_prefs = priorities[woman_set_label]
     
     freeMen = {}
     freeWomen = {}
